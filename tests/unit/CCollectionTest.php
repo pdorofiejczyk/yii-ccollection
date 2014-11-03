@@ -1,6 +1,6 @@
 <?php
-include(dirname(__FILE__) . '/../../CCollection.php');
-include(dirname(__FILE__) . '/../data/models.php');
+require_once(dirname(__FILE__) . '/../../CCollection.php');
+require_once(dirname(__FILE__) . '/../data/models.php');
 
 class CCollectionTest extends CTestCase
 {
@@ -137,7 +137,7 @@ class CCollectionTest extends CTestCase
         );
 
         $expected = array(
-            'aaa' => array(
+            'aaa' => new CCollection(array(
                 0 => array(
                     'p1' => 'aaa',
                     'p2' => 111,
@@ -148,14 +148,14 @@ class CCollectionTest extends CTestCase
                     'p2' => 222,
                     'p3' => false,
                 ),
-            ),
-            'bbb' => array(
+            )),
+            'bbb' => new CCollection(array(
                 1 => array(
                     'p1' => 'bbb',
                     'p2' => 333,
                     'p3' => true,
                 ),
-            ),
+            )),
         );
 
         $collection = new CCollection($models);

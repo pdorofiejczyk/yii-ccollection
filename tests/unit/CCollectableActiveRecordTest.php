@@ -1,5 +1,5 @@
 <?php
-include(dirname(__FILE__) . '/../data/models.php');
+require_once(dirname(__FILE__) . '/../data/models.php');
 
 class CCollectableActiveRecordTest extends CTestCase
 {

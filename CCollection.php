@@ -5,7 +5,7 @@ class CCollection extends CMap
     const SORT_ASC = 0;
     const SORT_DESC = 1;
 
-    protected function create($data)
+    protected function create($data = null)
     {
         return new static($data);
     }
@@ -36,7 +36,7 @@ class CCollection extends CMap
     {
         $result = CHtml::listData($this, $valueField, $textField, $groupField);
 
-        return static::create($result);
+        return $this->create($result);
     }
 
     /**
@@ -54,13 +54,13 @@ class CCollection extends CMap
             $groupKey = $element[$field];
 
             if (!isset($result[$groupKey])) {
-                $result[$groupKey] = array();
+                $result[$groupKey] = $this->create();
             }
 
             $result[$groupKey][$key] = $element;
         }
 
-        return $this->create($result);
+        return new self($result);
     }
 
     /**

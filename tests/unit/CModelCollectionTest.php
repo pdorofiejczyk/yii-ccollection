@@ -1,7 +1,7 @@
 <?php
-include(dirname(__FILE__) . '/../../CCollection.php');
-include(dirname(__FILE__) . '/../../CModelCollection.php');
-include(dirname(__FILE__) . '/../data/models.php');
+require_once(dirname(__FILE__) . '/../../CCollection.php');
+require_once(dirname(__FILE__) . '/../../CModelCollection.php');
+require_once(dirname(__FILE__) . '/../data/models.php');
 
 class CModelCollectionTest extends CTestCase
 {
@@ -137,6 +137,58 @@ class CModelCollectionTest extends CTestCase
         $dataList = $collection->lists($key, $value);
 
         $this->assertEquals(new CCollection($expected), $dataList);
+    }
+
+    /**
+     * @test
+     */
+    public function groupBy()
+    {
+        $models = array(
+            new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 111,
+                'p3' => true,
+            )),
+            new TestModel(array(
+                'p1' => 'bbb',
+                'p2' => 333,
+                'p3' => true,
+            )),
+            new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 222,
+                'p3' => false,
+            )),
+        );
+
+        $expected = array(
+            'aaa' => new CCollection(array(
+                0 => new TestModel(array(
+                    'p1' => 'aaa',
+                    'p2' => 111,
+                    'p3' => true,
+                )),
+                2 => new TestModel(array(
+                    'p1' => 'aaa',
+                    'p2' => 222,
+                    'p3' => false,
+                )),
+            )),
+            'bbb' => new CCollection(array(
+                1 => new TestModel(array(
+                    'p1' => 'bbb',
+                    'p2' => 333,
+                    'p3' => true,
+                )),
+            )),
+        );
+
+        $collection = new CCollection($models);
+
+        $groupedCollection = $collection->groupBy('p1');
+
+        $this->assertEquals(new CCollection($expected), $groupedCollection);
     }
 
     /**
