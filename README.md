@@ -1,7 +1,7 @@
 Missing Yii CCollection
 =======================
 
-Yii has collection classes like CMap or CList but it doesn't provides methods for operations on these collections. [CCollection](docs\CCollection.md) fills this gap.
+Yii has collection classes like CMap or CList but it doesn't provides methods for operations on these collections. [CCollection](docs/CCollection.md) fills this gap.
 
 What's more, Yii CActiveRecord always return array of models instead of returning collection which can ease operations on data retrieved from database. Models based on CCollectableActiveRecord returns CModelCollection which has special methods for dealing with collection of Models.
  
