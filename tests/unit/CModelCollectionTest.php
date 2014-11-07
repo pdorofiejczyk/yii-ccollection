@@ -169,14 +169,14 @@ class CModelCollectionTest extends CTestCase
                     'p2' => 111,
                     'p3' => true,
                 )),
-                2 => new TestModel(array(
+                1 => new TestModel(array(
                     'p1' => 'aaa',
                     'p2' => 222,
                     'p3' => false,
                 )),
             )),
             'bbb' => new CCollection(array(
-                1 => new TestModel(array(
+                0 => new TestModel(array(
                     'p1' => 'bbb',
                     'p2' => 333,
                     'p3' => true,
@@ -227,5 +227,95 @@ class CModelCollectionTest extends CTestCase
             $this->assertEquals($expected[$i], $model->p2);
             $i++;
         }
+    }
+
+    /**
+     * @test
+     */
+    public function filter()
+    {
+        $models = array(
+            new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 111,
+                'p3' => true,
+            )),
+            new TestModel(array(
+                'p1' => 'bbb',
+                'p2' => 333,
+                'p3' => true,
+            )),
+            new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 222,
+                'p3' => false,
+            )),
+        );
+
+        $expected = array(
+            0 => new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 111,
+                'p3' => true,
+            )),
+            2 => new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 222,
+                'p3' => false,
+            )),
+        );
+
+        $collection = new CCollection($models);
+        $expectedCollection = new CCollection($expected);
+
+        $filteredCollection = $collection->filter(function($element) {
+            return $element->p1 === 'aaa';
+        });
+
+        $this->assertEquals($expectedCollection, $filteredCollection);
+    }
+
+    /**
+     * @test
+     */
+    public function filterBy()
+    {
+        $models = array(
+            new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 111,
+                'p3' => true,
+            )),
+            new TestModel(array(
+                'p1' => 'bbb',
+                'p2' => 333,
+                'p3' => true,
+            )),
+            new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 222,
+                'p3' => false,
+            )),
+        );
+
+        $expected = array(
+            0 => new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 111,
+                'p3' => true,
+            )),
+            2 => new TestModel(array(
+                'p1' => 'aaa',
+                'p2' => 222,
+                'p3' => false,
+            )),
+        );
+
+        $collection = new CCollection($models);
+        $expectedCollection = new CCollection($expected);
+
+        $filteredCollection = $collection->filterBy('p1', 'aaa');
+
+        $this->assertEquals($expectedCollection, $filteredCollection);
     }
 }

@@ -40,8 +40,10 @@ class CCollection extends CMap
     }
 
     /**
-     * Groups collection data by given field value
+     * Groups collection data by given field value Accepts CHtml::value
+     * format (dot separated subproperties).
      *
+     * @see CHtml::value
      * @param string $field Field name which will be used as grouping key
      * @return CCollection
      */
@@ -50,14 +52,14 @@ class CCollection extends CMap
         $data = $this->toArray();
         $result = array();
 
-        foreach ($data as $key => $element) {
-            $groupKey = $element[$field];
+        foreach ($data as $element) {
+            $groupKey = CHtml::value($element, $field);
 
             if (!isset($result[$groupKey])) {
                 $result[$groupKey] = $this->create();
             }
 
-            $result[$groupKey][$key] = $element;
+            $result[$groupKey][] = $element;
         }
 
         return new self($result);
@@ -100,9 +102,24 @@ class CCollection extends CMap
      */
     public function filter($callback)
     {
-        $result = array_filter($this, $callback, ARRAY_FILTER_USE_BOTH);
+        $result = array_filter($this->toArray(), $callback);
 
         return $this->create($result);
+    }
+
+    /**
+     * Filters by given field value. Accepts CHtml::value
+     * format (dot separated subproperties).
+     *
+     * @see CHtml::value
+     * @param string $field
+     * @param string $value
+     */
+    public function filterBy($field, $value)
+    {
+        return $this->filter(function($element) use ($field, $value) {
+            return CHtml::value($element, $field)=== $value;
+        });
     }
 
     /**
@@ -122,8 +139,10 @@ class CCollection extends CMap
     }
 
     /**
-     * Sorts collection by field name
+     * Sorts collection by field name Accepts CHtml::value
+     * format (dot separated subproperties).
      *
+     * @see CHtml::value
      * @param string $field
      * @param int $direction Sort direction (self::SORT_ASC or self::SORT_DESC)
      * @return CCollection
@@ -135,7 +154,7 @@ class CCollection extends CMap
         $data = $this->toArray();
 
         foreach ($data as $key => $item) {
-            $fieldValues[$key] = $item[$field];
+            $fieldValues[$key] = CHtml::value($item, $field);
         }
 
         if ($direction === self::SORT_ASC) {
