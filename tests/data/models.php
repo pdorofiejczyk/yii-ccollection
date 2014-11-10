@@ -36,6 +36,11 @@ class TestModel extends CModel
             'p3'
         );
     }
+
+    public function getConcatenetedP1AndP2()
+    {
+        return $this->p1.$this->p2;
+    }
 }
 
 class TestChildModel extends TestModel

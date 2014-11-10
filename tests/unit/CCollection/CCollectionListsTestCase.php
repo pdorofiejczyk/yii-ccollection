@@ -28,6 +28,14 @@ class CCollectionListsTestCase extends CTestCase
     {
         return array(
             array(
+                'p1', null, null,
+                array('aaa', 'bbb', 'ccc'),
+            ),
+            array(
+                'p2', null, null,
+                array(111, 222, 222),
+            ),
+            array(
                 'p1', 'p2', null,
                 array('aaa' => 111, 'bbb' => 222, 'ccc' => 222),
             ),
