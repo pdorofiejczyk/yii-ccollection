@@ -9,7 +9,7 @@ Examples
 --------
  
 Post.php
-```
+```php
 class Post extends CCollectableActiveRecord
 {
     public static function model($className = __CLASS__)
@@ -32,7 +32,7 @@ class Post extends CCollectableActiveRecord
 ```
 
 Usage
-```
+```php
 $posts = Post::model()->findAll();
 
 $postsCount = $posts->count();
