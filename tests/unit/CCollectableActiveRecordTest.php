@@ -1,4 +1,6 @@
 <?php
+require_once(dirname(__FILE__) . '/../../CCollection.php');
+require_once(dirname(__FILE__) . '/../../CModelCollection.php');
 require_once(dirname(__FILE__) . '/../data/models.php');
 
 class CCollectableActiveRecordTest extends CTestCase
