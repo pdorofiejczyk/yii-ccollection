@@ -1,10 +1,40 @@
-Missing Yii CCollection
+CCollection - Yii collection for active record and more
 =======================
 
 Yii has collection classes like CMap or CList but it doesn't provides methods for operations on these collections. CCollection fills this gap.
 
 What's more, Yii CActiveRecord always return array of models instead of returning collection which can ease operations on data retrieved from database. Models based on CCollectableActiveRecord returns CModelCollection which has special methods for dealing with collection of Models.
- 
+
+Installation
+------------
+
+###Instaling extension
+ - using git: go to the ***protected/extensions*** directory and clone project<bR>
+
+```bash
+$> git clone https://github.com/pdorofiejczyk/yii-ccollection.git
+```
+ - using archive: download archive and unpack it into ***protected/extensions*** directory
+
+###Yii configuration
+
+You can add extension into ***import*** section into your ***config/main.php*** file for class autoloading
+
+```php
+
+return array(
+
+    ...
+
+    'import' => array(
+        'ext.yii-ccollection.*'
+    ),
+
+    ...
+);
+
+```
+
 Examples
 --------
  
